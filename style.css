@@ -721,3 +721,68 @@ footer span {
         max-width: 380px;
     }
 }
+/* =========================
+   ITEM BUTTONS
+   ========================= */
+
+.item-card .item-button,
+.item-card .delete-button {
+    width: 100%;
+    height: 46px;
+    box-sizing: border-box;
+    display: block;
+    margin: 10px 0 0 0;
+    padding: 0;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+
+/* Request Item button */
+
+.item-card .item-button {
+    background: #315bea;
+    color: white;
+}
+
+.item-card .item-button:hover {
+    background: #244bd0;
+}
+
+
+/* Delete button */
+
+.item-card .delete-button {
+    background: #ff4d4d;
+    color: white;
+}
+
+.item-card .delete-button:hover {
+    background: #e63939;
+}
+
+
+/* =========================
+   ITEMS GRID
+   ========================= */
+
+.items-container {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 28px;
+    align-items: stretch;
+}
+
+
+/* =========================
+   ITEM CARD
+   ========================= */
+
+.item-card {
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+}
