@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UniLoop</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <header>
+        <div class="logo">Uni<span>Loop</span></div>
+
+        <nav>
+            <a href="#available">Available</a>
+            <a href="#request">Requests</a>
+            <a href="#how-it-works">How it works</a>
+        </nav>
+
+        <div class="profile">👤</div>
+    </header>
+
+
+    <section class="hero">
+        <div class="hero-content">
+            <span class="small-label">HOSTEL SHARING MADE SIMPLE</span>
+
+            <h1>Everything you need.<br><span>Already in your hostel.</span></h1>
+
+            <p>
+                Borrow useful things from people around you,
+                or share something you already have.
+            </p>
+
+            <div class="hero-buttons">
+                <a href="#available" class="hero-button">Browse Items ↓</a>
+                <a href="#request" class="hero-button secondary">Request Something</a>
+            </div>
+        </div>
+
+        <div class="hero-illustration">
+            <div class="floating-card card-one">🏸<br><small>Badminton</small></div>
+            <div class="floating-card card-two">🖱️<br><small>Mouse</small></div>
+            <div class="floating-card card-three">🔌<br><small>Iron</small></div>
+            <div class="circle-logo">🔄</div>
+        </div>
+    </section>
+
+
+    <section class="stats">
+        <div class="stat">
+            <h2 id="itemCount">0</h2>
+            <p>Available Items</p>
+        </div>
+
+        <div class="stat">
+            <h2 id="requestCount">0</h2>
+            <p>Active Requests</p>
+        </div>
+
+        <div class="stat">
+            <h2>24/7</h2>
+            <p>Hostel Community</p>
+        </div>
+    </section>
+
+
+    <section id="available" class="section">
+        <div class="section-heading">
+            <span class="small-label">BORROW SOMETHING</span>
+            <h2>Available Items</h2>
+            <p>Find something useful from people around your hostel.</p>
+        </div>
+
+        <div class="add-item-box">
+            <div>
+                <h3>Have something to share?</h3>
+                <p>List your item and let someone else use it.</p>
+            </div>
+
+            <div class="form-row">
+                <input type="text" id="itemName" placeholder="Item name">
+                <input type="text" id="itemDescription" placeholder="Short description">
+                <input type="text" id="itemPrice" placeholder="Price per day">
+                <button onclick="addItem()">+ List Item</button>
+            </div>
+        </div>
+
+        <div id="itemsContainer" class="items-container"></div>
+    </section>
+
+
+    <section id="request" class="section request-section">
+        <div class="section-heading">
+            <span class="small-label">NEED SOMETHING?</span>
+            <h2>Request an Item</h2>
+            <p>Tell the hostel community what you need and for how long.</p>
+        </div>
+
+        <div class="request-box">
+            <input type="text" id="requestItem" placeholder="What do you need?">
+            <div class="request-row">
+                <input type="date" id="requestDate">
+                <input type="number" id="requestDays" placeholder="Number of days">
+            </div>
+
+            <button class="main-button" onclick="requestItem()">Send Request</button>
+            <p id="requestMessage"></p>
+        </div>
+
+        <h2 class="sub-heading">Active Requests</h2>
+
+        <div id="requestsContainer" class="items-container"></div>
+    </section>
+
+
+    <section id="how-it-works" class="how-section">
+        <div class="section-heading">
+            <span class="small-label">SIMPLE AS 1-2-3</span>
+            <h2>How UniLoop Works</h2>
+            <p>Making hostel life a little easier, one item at a time.</p>
+        </div>
+
+        <div class="steps">
+            <div class="step">
+                <div class="step-number">01</div>
+                <div class="step-icon">🔎</div>
+                <h3>Find</h3>
+                <p>Look through items shared by people in your hostel.</p>
+            </div>
+
+            <div class="step">
+                <div class="step-number">02</div>
+                <div class="step-icon">📝</div>
+                <h3>Request</h3>
+                <p>Choose what you need and tell us how long you need it.</p>
+            </div>
+
+            <div class="step">
+                <div class="step-number">03</div>
+                <div class="step-icon">🤝</div>
+                <h3>Share</h3>
+                <p>Connect with your hostel community and exchange the item.</p>
+            </div>
+        </div>
+    </section>
+
+
+    <footer>
+        <div class="footer-logo">UniLoop</div>
+        <p>Built for hostel communities.</p>
+        <span>© 2026 UniLoop</span>
+    </footer>
+
+
+    <script src="script.js"></script>
+</body>
+</html>
