@@ -47,7 +47,7 @@ async function syncAvailability(itemId) {
 
 function populateRequest(query) {
     return query
-        .populate("item", "name imageUrl pricePerDay availability")
+        .populate("item", "name imageUrl category pricePerDay availability")
         .populate("requester", "name email hostel")
         .populate("owner", "name email hostel");
 }

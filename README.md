@@ -5,10 +5,22 @@ A hostel item-sharing and rental platform for students, built with the MERN stac
 | Folder    | What it is                                                       |
 |-----------|------------------------------------------------------------------|
 | `server/` | REST API: Node.js, Express, MongoDB (Mongoose), JWT auth, Multer |
-| `client/` | React frontend (coming next)                                     |
+| `client/` | React frontend (Vite + React Router)                             |
 | `legacy/` | Original HTML/CSS/JS + localStorage prototype (evaluation 1)     |
+| `docs/`   | Viva notes explaining how everything works                       |
 
-## Running the server
+## Features
+
+- Register and log in (passwords hashed with bcrypt, sessions with JWT)
+- Browse items with search, category, availability, price and hostel filters, plus sorting
+- List items with a photo (uploaded with Multer), and edit or delete your own listings
+- Request an item for specific dates; the owner approves or rejects it
+- Rental lifecycle: pending → approved → borrowed → returned, with cancel and reject
+- Overlapping bookings are blocked, and an item shows as *Reserved* while it is booked
+- Authorization: only the owner (or an admin) can change an item; only the right person can move a request to each status
+- Responsive layout based on the original UniLoop design
+
+## Quick start
 
 1. **Create a free MongoDB Atlas cluster**
    - Sign up at https://www.mongodb.com/cloud/atlas and create a free M0 cluster.
@@ -19,13 +31,56 @@ A hostel item-sharing and rental platform for students, built with the MERN stac
    - Copy `server/.env.example` to `server/.env`.
    - Paste the connection string into `MONGO_URI`, replacing `<username>`, `<password>` and `<cluster>`. Keep `/uniloop` before the `?` so the database is called `uniloop`.
    - Set `JWT_SECRET` to any long random string.
-3. **Install and start**
+3. **Install everything** (from the project root folder)
    ```bash
-   cd server
-   npm install
+   npm run install-all
+   ```
+4. **Add demo data** (optional, recommended for a demo)
+   ```bash
+   npm run seed
+   ```
+   This creates three students, `aarav@uniloop.test`, `priya@uniloop.test` and `rohan@uniloop.test`, all with password `password123`, and gives each of them two items. It only adds what's missing and never deletes anything.
+5. **Run the app**
+   ```bash
    npm run dev
    ```
-   You should see `MongoDB connected` followed by `UniLoop API running on http://localhost:5000`.
+   This starts the API on http://localhost:5000 and React on **http://localhost:5173**. Open the React address.
+   During development, Vite forwards `/api` and `/uploads` requests to the API (see `client/vite.config.js`).
+
+### Production build
+
+```bash
+npm run build
+npm start
+```
+
+`npm run build` compiles React into `client/dist`. `npm start` runs Express with `NODE_ENV=production`, so the API and the React app are both served from http://localhost:5000.
+
+### Demo script for the evaluation
+
+1. Log in as **Aarav**, open *My Listings* and list an item with a photo.
+2. Open Priya's **Electric Iron** and request it for two days.
+3. Log out and log in as **Priya**. In *My Listings*, approve the request; the iron now shows *Reserved*.
+4. Click **Mark handed over**, then **Mark returned**. The iron is *Available* again.
+5. Show authorization: try requesting your own item, or see that Priya gets no Edit/Delete buttons on Aarav's item.
+
+## Project structure
+
+```
+client/src/
+  api.js                 fetch wrapper that adds the JWT and handles errors
+  context/AuthContext    logged-in user shared via React Context
+  components/            Navbar, Footer, ProtectedRoute, ItemCard, ItemForm, RequestCard, ItemImage
+  pages/                 Home, Login, Register, ItemDetail, MyListings, MyRequests, NotFound
+server/
+  app.js / server.js     Express setup / database connection and startup
+  models/                User, Item, Request (Mongoose schemas)
+  controllers/           auth, item and request logic
+  routes/                URL → controller mapping
+  middleware/            auth (protect, authorize), upload (Multer), errorHandler
+  utils/permissions.js   ownership checks
+  scripts/               seed.js, makeAdmin.js
+```
 
 ## API
 

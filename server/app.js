@@ -1,3 +1,5 @@
+const fs = require("fs");
+const path = require("path");
 const express = require("express");
 const cors = require("cors");
 
@@ -25,6 +27,16 @@ app.use("/uploads", express.static(UPLOAD_DIR));
 app.use("/api/auth", authRoutes);
 app.use("/api/items", itemRoutes);
 app.use("/api/requests", requestRoutes);
+
+// In production, serve the built React app (client/dist) from this same
+// server. Any non-API URL returns index.html so React Router can handle it.
+const CLIENT_DIST = path.join(__dirname, "..", "client", "dist");
+if (process.env.NODE_ENV === "production" && fs.existsSync(CLIENT_DIST)) {
+    app.use(express.static(CLIENT_DIST));
+    app.get(/^\/(?!api\/|uploads\/).*/, function (req, res) {
+        res.sendFile(path.join(CLIENT_DIST, "index.html"));
+    });
+}
 
 // These two must stay last
 app.use(notFound);
