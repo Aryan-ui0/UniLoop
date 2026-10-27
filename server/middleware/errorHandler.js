@@ -25,13 +25,22 @@ function errorHandler(err, req, res, next) {
         return res.status(400).json({ message: "Invalid id." });
     }
 
+    // Upload problems reported by Multer (file too big, wrong field name...)
+    if (err.name === "MulterError") {
+        const message = err.code === "LIMIT_FILE_SIZE"
+            ? "Image must be 2 MB or smaller."
+            : "Upload error: " + err.message;
+        return res.status(400).json({ message: message });
+    }
+
     // Malformed JSON body
     if (err.type === "entity.parse.failed") {
         return res.status(400).json({ message: "Invalid JSON in request body." });
     }
 
-    console.error(err);
-    res.status(err.statusCode || 500).json({ message: err.message || "Server error" });
+    const status = err.statusCode || 500;
+    if (status >= 500) console.error(err); // only log real server bugs
+    res.status(status).json({ message: err.message || "Server error" });
 }
 
 module.exports = { notFound, errorHandler };

@@ -55,7 +55,7 @@ const itemSchema = new mongoose.Schema(
     { timestamps: true }
 );
 
-// Lets us search items by name and description.
-itemSchema.index({ name: "text", description: "text" });
+itemSchema.statics.CATEGORIES = itemSchema.path("category").enumValues;
+itemSchema.statics.CONDITIONS = itemSchema.path("condition").enumValues;
 
 module.exports = mongoose.model("Item", itemSchema);
