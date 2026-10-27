@@ -7,7 +7,8 @@
     "start": "node server.js",
     "dev": "nodemon server.js",
     "make-admin": "node scripts/makeAdmin.js",
-    "seed": "node scripts/seed.js"
+    "seed": "node scripts/seed.js",
+    "seed:if-empty": "node scripts/seed.js --if-empty"
   },
   "keywords": [],
   "author": "",

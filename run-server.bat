@@ -65,6 +65,17 @@ if errorlevel 1 (
 echo  [OK] Packages installed
 
 :start
+REM --- 4. Add the demo users and items if the database is empty ---
+echo  [..] Connecting to the database...
+call npm run seed:if-empty --prefix server --silent
+if errorlevel 1 (
+    echo.
+    echo  [X] Could not connect to MongoDB. Check MONGO_URI in server\.env,
+    echo      and that your IP address is allowed under Network Access in Atlas.
+    pause
+    exit /b 1
+)
+
 echo.
 echo  Starting UniLoop...
 echo    App:  http://localhost:5173

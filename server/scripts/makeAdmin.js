@@ -3,6 +3,7 @@
 require("dotenv").config({ quiet: true, path: require("path").join(__dirname, "..", ".env") });
 
 const mongoose = require("mongoose");
+const connectDB = require("../config/db");
 const User = require("../models/User");
 
 async function main() {
@@ -12,7 +13,7 @@ async function main() {
         process.exit(1);
     }
 
-    await mongoose.connect(process.env.MONGO_URI);
+    await connectDB(process.env.MONGO_URI);
     const user = await User.findOneAndUpdate({ email: email }, { role: "admin" }, { new: true });
     console.log(user ? user.email + " is now an admin." : "No user with email " + email);
     await mongoose.disconnect();

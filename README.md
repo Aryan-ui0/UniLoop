@@ -26,9 +26,10 @@ Double-click **`run-server.bat`** in the project folder. It:
 1. Checks that Node.js is installed.
 2. Creates `server/.env` from the example on the first run, then stops and asks you to fill in your Atlas `MONGO_URI` and `JWT_SECRET` (see step 1 below).
 3. Installs all packages if they're missing (first run only).
-4. Starts the API and React together and opens http://localhost:5173 in your browser.
+4. Adds the demo users and items if the database is empty (see "Add demo data" below).
+5. Starts the API and React together and opens http://localhost:5173 in your browser.
 
-Close the window to stop the server. To add the demo users and items, run `npm run seed` once.
+Close the window to stop the server.
 
 ## Quick start (manual)
 
@@ -39,7 +40,7 @@ Close the window to stop the server. To add the demo users and items, run `npm r
    - Click *Connect → Drivers* and copy the connection string.
 2. **Configure environment variables**
    - Copy `server/.env.example` to `server/.env`.
-   - Paste the connection string into `MONGO_URI`, replacing `<username>`, `<password>` and `<cluster>`. Keep `/uniloop` before the `?` so the database is called `uniloop`.
+   - Paste the connection string into `MONGO_URI`, replacing `<username>`, `<password>` and `<cluster>`. If the string has no database name after `.net/`, the app uses one called `uniloop`.
    - Set `JWT_SECRET` to any long random string.
 3. **Install everything** (from the project root folder)
    ```bash

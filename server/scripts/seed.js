@@ -2,9 +2,12 @@
 // Safe to run more than once: it only creates what is missing and
 // never deletes anything.
 // Usage: npm run seed
+//        node scripts/seed.js --if-empty   (only seeds a database with no users;
+//                                           run-server.bat uses this on every start)
 require("dotenv").config({ quiet: true, path: require("path").join(__dirname, "..", ".env") });
 
 const mongoose = require("mongoose");
+const connectDB = require("../config/db");
 const User = require("../models/User");
 const Item = require("../models/Item");
 
@@ -46,7 +49,13 @@ async function main() {
         process.exit(1);
     }
 
-    await mongoose.connect(process.env.MONGO_URI);
+    await connectDB(process.env.MONGO_URI);
+
+    if (process.argv.includes("--if-empty") && (await User.exists({}))) {
+        console.log("Database already has users, skipping demo data.");
+        await mongoose.disconnect();
+        return;
+    }
 
     for (const demo of DEMO_USERS) {
         let user = await User.findOne({ email: demo.email });
